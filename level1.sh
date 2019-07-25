@@ -11,11 +11,21 @@ sudo yum install -y kubectl gcloud google-cloud-sdk-app-engine-grpc google-cloud
 
 #Project creation
 projectName=$1
+billing_account=`gcloud alpha billing accounts list | sed '1d' | awk '{print $1}'`
+
+if [ "" == "" ];
+then
+echo "No Billing acount found in your config"
+echo "Please config gcloud in local terminal"
+exit 1
+fi
+
 gcloud projects create $projectName --set-as-default
 gcloud config set compute/zone "us-central1-a"
 echo "gcp $projectName is created in zone us-central1-a"
 
 #CLuster Creation
+gcloud alpha billing projects link $projectName --billing-account $billing_account
 gcloud container clusters create "my-first-cluster-1" --zone "us-central1-a"
 
 #To Setup kube config
