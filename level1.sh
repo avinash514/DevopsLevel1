@@ -11,7 +11,7 @@ sudo yum install -y kubectl gcloud google-cloud-sdk-app-engine-grpc google-cloud
 
 #Project creation
 projectName=$1
-billing_account=`gcloud alpha billing accounts list | sed '1d' | awk '{print $1}'`
+billing_account=`gcloud alpha billing accounts list | tail -1 | awk '{print $1}'`
 
 if [ "$billing_account" == "" ];
 then
