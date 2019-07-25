@@ -17,3 +17,6 @@ HOWTO:
 
 # Increasing Load
 - run `while true; do curl http://<LOAD BALANCER_IP>/; done`
+
+# To watch/Monitor HPA
+- run `kubectl get hpa --watch`
